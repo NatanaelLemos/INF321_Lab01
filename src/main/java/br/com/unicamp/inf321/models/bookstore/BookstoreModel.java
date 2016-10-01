@@ -1,12 +1,34 @@
-package BookstoreModel;
+package br.com.unicamp.inf321.models.bookstore;
+
+import org.graphwalker.java.annotation.GraphWalker;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.unicamp.inf321.BookStore;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
 
+@GraphWalker(value = "random(edge_coverage(100))", start = "Pagina_inicial")
 public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContext implements BookStore{
 
+	private AndroidDriver<WebElement> driver;
+	private WebDriverWait wait;
+	private static final String TEXT_VIEW_LOCATOR = "android.widget.TextView";
+	private static final String LIST_VIEW_LOCATOR = "android.widget.ListView";
+	private static final String EDIT_TEXT_LOCATOR = "android.widget.EditText";
+	private static final String FIRST_NOTE_LOCATOR = "//android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.widget.ListView[1]/android.widget.TextView[1]";
+	
+	public BookstoreModel(AndroidDriver<WebElement> driver) {
+		super();
+		this.driver = driver;
+		wait = new WebDriverWait(driver, 30);
+	}
+	
 	@Override
 	public void visualizar_carrinho() {
-		// TODO Auto-generated method stub
 		
 	}
 
