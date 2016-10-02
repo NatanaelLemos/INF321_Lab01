@@ -1,8 +1,14 @@
 package br.com.unicamp.inf321.models.bookstore;
 
+import static org.assertj.core.api.StrictAssertions.assertThat;
+
+import java.util.Random;
+
+import org.assertj.core.api.AssertDelegateTarget;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.ClickAction;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,14 +27,75 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	private static final String EDIT_TEXT_LOCATOR = "android.widget.EditText";
 	private static final String FIRST_NOTE_LOCATOR = "//android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.widget.ListView[1]/android.widget.TextView[1]";
 	
+	public BookstoreModel(){
+	}
+	
 	public BookstoreModel(AndroidDriver<WebElement> driver) {
 		super();
 		this.driver = driver;
 		wait = new WebDriverWait(driver, 30);
 	}
+
+	@Override
+	public void iniciar() {
+		driver.launchApp();		
+	}
+
+	@Override
+	public void Pagina_inicial() {		
+		assertThat(true);
+	}
+
+	@Override
+	public void preencherPesquisa() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(1670, 341).perform();
+    	
+		TouchAction touchAction2 = new TouchAction(driver);
+    	touchAction2.tap(212, 353).perform();
+    	assertThat(true);
+	}
+
+	@Override
+	public void Popup_de_erro() {
+		
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(341, 1670).perform();
+    	
+		TouchAction touchAction2 = new TouchAction(driver);
+    	touchAction2.tap(353, 212).perform();
+    	assertThat(true);
+	}
+
+	@Override
+	public void Pesquisa_preenchida() {
+    	assertThat(true);		
+	}
+
+	@Override
+	public void Lista_de_produtos() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(1044, 1688).perform();
+    	assertThat(true);
+	}
 	
 	@Override
 	public void visualizar_carrinho() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(643, 895).perform();
+		assertThat(true);
+	}
+
+	@Override
+	public void TelaEnderecosEntrega() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(1480, 899).perform();
+		assertThat(true);
+	}
+
+	@Override
+	public void selecionaEndereco() {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -87,12 +154,6 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	}
 
 	@Override
-	public void Pesquisa_preenchida() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void voltar() {
 		// TODO Auto-generated method stub
 		
@@ -100,12 +161,6 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 
 	@Override
 	public void incrementar_item() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void selecionaEndereco() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -135,25 +190,7 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	}
 
 	@Override
-	public void preencherPesquisa() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void iniciar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void Carrinho_de_compras() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void TelaEnderecosEntrega() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -225,31 +262,13 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	}
 
 	@Override
-	public void Lista_de_produtos() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void enviarEmail() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void Pagina_inicial() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void enviarDados() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Popup_de_erro() {
 		// TODO Auto-generated method stub
 		
 	}

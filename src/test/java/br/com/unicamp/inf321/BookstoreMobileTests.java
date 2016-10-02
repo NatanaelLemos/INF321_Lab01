@@ -17,10 +17,12 @@ import org.graphstream.stream.file.FileSinkImages.OutputType;
 import org.graphstream.stream.file.FileSinkImages.RendererType;
 import org.graphstream.stream.file.FileSinkImages.Resolutions;
 import org.graphwalker.core.condition.EdgeCoverage;
+import org.graphwalker.core.condition.ReachedEdge;
 import org.graphwalker.core.condition.ReachedVertex;
 import org.graphwalker.core.condition.TimeDuration;
 import org.graphwalker.core.event.Observer;
 import org.graphwalker.core.generator.AStarPath;
+import org.graphwalker.core.generator.CombinedPath;
 import org.graphwalker.core.generator.RandomPath;
 import org.graphwalker.java.test.Result;
 import org.junit.After;
@@ -37,6 +39,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import br.com.unicamp.inf321.helper.GraphWalkerTestBuilder;
 import br.com.unicamp.inf321.models.bookstore.BookstoreModel;
+import br.com.unicamp.inf321.models.noteslist.NotesListModel;
 import br.com.unicamp.inf321.observers.GraphStreamObserver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
@@ -86,15 +89,18 @@ public class BookstoreMobileTests {
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0");
 		capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 		capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "	com.example.android.bookstore");
-		capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".NotesList");
+		capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".Bookstore");
 		capabilities.setCapability(MobileCapabilityType.TAKES_SCREENSHOT, "true");
 		capabilities.setCapability(AndroidMobileCapabilityType.UNICODE_KEYBOARD, "true"); //disable soft keyboard
+		capabilities.setCapability("appPackage", "com.marvelapp.project860015");
+		capabilities.setCapability("appActivity", ".BookstoreActivity");
+		
 		try {
 			driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities); //inicia android driver passando url do server do appium
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		driver.rotate(ScreenOrientation.PORTRAIT); //rotaciona tela
+		driver.rotate(ScreenOrientation.LANDSCAPE); //rotaciona tela
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); //seta timeout implicito (sempre vai esperar no minimo 5 segundos pelo elemento na tela)
 	}
 
@@ -105,10 +111,15 @@ public class BookstoreMobileTests {
 	
 	@Test
 	public void runSmokeTest() {
+		CombinedPath cp = new CombinedPath();
+		cp.addPathGenerator(new AStarPath(new ReachedEdge("iniciar")));
+		cp.addPathGenerator(new AStarPath(new ReachedVertex("Pesquisa_preenchida")));
+		cp.addPathGenerator(new AStarPath(new ReachedVertex("Lista_de_produtos")));
+		
 		Result result = new GraphWalkerTestBuilder()
 				.addModel(MODEL_PATH,
-						new AStarPath(new ReachedVertex("EmSeparacao")), new BookstoreModel())
-				.addObserver(observer)
+						cp, new BookstoreModel(driver))
+				.addObserver(observer) //adicona observer para ver execução do modelo animada
 				.execute(true);
 		Assertions.assertThat(result.getErrors()).as("Errors: [" + String.join(", ", result.getErrors()) + "]").isNullOrEmpty();
 	}
@@ -117,8 +128,8 @@ public class BookstoreMobileTests {
 	public void runStabilityTest() {
 		Result result = new GraphWalkerTestBuilder()
 				.addModel(MODEL_PATH,
-						new RandomPath(new TimeDuration(120, TimeUnit.SECONDS)), new BookstoreModel())
-				.addObserver(observer)
+						new RandomPath(new TimeDuration(120, TimeUnit.SECONDS)), "Pagina_inicial", new BookstoreModel(driver))
+				.addObserver(observer) //adicona observer para ver execução do modelo animada
 				.execute(true);
 		Assertions.assertThat(result.getErrors()).as("Errors: [" + String.join(", ", result.getErrors()) + "]").isNullOrEmpty();
 	}
@@ -126,8 +137,8 @@ public class BookstoreMobileTests {
 	@Test
 	public void runFunctionalTest() {
 		Result result = new GraphWalkerTestBuilder()
-				.addModel(MODEL_PATH, new RandomPath(new EdgeCoverage(100)), new BookstoreModel())
-				.addObserver(observer)
+				.addModel(MODEL_PATH, new RandomPath(new EdgeCoverage(100)), "Pagina_inicial", new BookstoreModel(driver))
+				.addObserver(observer) //adicona observer para ver execução do modelo animada
 				.execute(true);
 		Assertions.assertThat(result.getErrors()).as("Errors: [" + String.join(", ", result.getErrors()) + "]").isNullOrEmpty();
 	}
