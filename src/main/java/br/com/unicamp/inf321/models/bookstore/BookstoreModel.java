@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.unicamp.inf321.BookStore;
+import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidKeyCode;
@@ -37,23 +38,30 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	}
 
 	@Override
-	public void iniciar() {
-		driver.launchApp();		
+	public void iniciar() {	
+		driver.launchApp();	
 	}
 
 	@Override
 	public void Pagina_inicial() {		
-		assertThat(true);
 	}
 
 	@Override
 	public void preencherPesquisa() {
+		String locator = "//*";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+		
 		TouchAction touchAction = new TouchAction(driver);
-    	touchAction.tap(1670, 341).perform();
-    	
-		TouchAction touchAction2 = new TouchAction(driver);
-    	touchAction2.tap(212, 353).perform();
-    	assertThat(true);
+    	touchAction.tap(730, 298).perform();
+	}
+
+	@Override
+	public void Pesquisa_preenchida() {	
+		String locator = "//*";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+		
+		TouchAction touchAction = new TouchAction(driver);
+		touchAction.tap(1723, 730).perform();
 	}
 
 	@Override
@@ -64,33 +72,30 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
     	
 		TouchAction touchAction2 = new TouchAction(driver);
     	touchAction2.tap(353, 212).perform();
-    	assertThat(true);
 	}
 
 	@Override
-	public void Pesquisa_preenchida() {
-    	assertThat(true);		
+	public void pesquisa() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void Lista_de_produtos() {
 		TouchAction touchAction = new TouchAction(driver);
     	touchAction.tap(1044, 1688).perform();
-    	assertThat(true);
 	}
 	
 	@Override
 	public void visualizar_carrinho() {
 		TouchAction touchAction = new TouchAction(driver);
     	touchAction.tap(643, 895).perform();
-		assertThat(true);
 	}
 
 	@Override
 	public void TelaEnderecosEntrega() {
 		TouchAction touchAction = new TouchAction(driver);
     	touchAction.tap(1480, 899).perform();
-		assertThat(true);
 	}
 
 	@Override
@@ -215,12 +220,6 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 
 	@Override
 	public void Dados_enviados_ipo() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void pesquisa() {
 		// TODO Auto-generated method stub
 		
 	}

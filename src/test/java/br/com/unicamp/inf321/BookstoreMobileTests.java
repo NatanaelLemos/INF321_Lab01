@@ -128,7 +128,7 @@ public class BookstoreMobileTests {
 	public void runStabilityTest() {
 		Result result = new GraphWalkerTestBuilder()
 				.addModel(MODEL_PATH,
-						new RandomPath(new TimeDuration(120, TimeUnit.SECONDS)), "Pagina_inicial", new BookstoreModel(driver))
+						new RandomPath(new TimeDuration(120, TimeUnit.SECONDS)), "iniciar", new BookstoreModel(driver))
 				.addObserver(observer) //adicona observer para ver execução do modelo animada
 				.execute(true);
 		Assertions.assertThat(result.getErrors()).as("Errors: [" + String.join(", ", result.getErrors()) + "]").isNullOrEmpty();
@@ -137,7 +137,7 @@ public class BookstoreMobileTests {
 	@Test
 	public void runFunctionalTest() {
 		Result result = new GraphWalkerTestBuilder()
-				.addModel(MODEL_PATH, new RandomPath(new EdgeCoverage(100)), "Pagina_inicial", new BookstoreModel(driver))
+				.addModel(MODEL_PATH, new RandomPath(new EdgeCoverage(100)), "iniciar", new BookstoreModel(driver))
 				.addObserver(observer) //adicona observer para ver execução do modelo animada
 				.execute(true);
 		Assertions.assertThat(result.getErrors()).as("Errors: [" + String.join(", ", result.getErrors()) + "]").isNullOrEmpty();
