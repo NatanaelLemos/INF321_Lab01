@@ -7,8 +7,10 @@ import java.util.Random;
 import org.assertj.core.api.AssertDelegateTarget;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.ClickAction;
+import org.openqa.selenium.interactions.touch.ScrollAction;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -40,84 +42,106 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	@Override
 	public void iniciar() {	
 		driver.launchApp();	
+		wait.until(ExpectedConditions.elementToBeClickable(By.className("android.widget.Image")));
 	}
 
 	@Override
-	public void Pagina_inicial() {		
+	public void Pagina_inicial() {				
 	}
 
 	@Override
 	public void preencherPesquisa() {
-		String locator = "//*";
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-		
 		TouchAction touchAction = new TouchAction(driver);
-    	touchAction.tap(730, 298).perform();
+    	touchAction.tap(342, 372).perform();
 	}
 
 	@Override
 	public void Pesquisa_preenchida() {	
-		String locator = "//*";
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-		
 		TouchAction touchAction = new TouchAction(driver);
-		touchAction.tap(1723, 730).perform();
+		touchAction.tap(1727, 365).perform();
+	}
+
+	@Override
+	public void pesquisa() {	
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(342, 372).perform();
 	}
 
 	@Override
 	public void Popup_de_erro() {
-		
 		TouchAction touchAction = new TouchAction(driver);
-    	touchAction.tap(341, 1670).perform();
-    	
-		TouchAction touchAction2 = new TouchAction(driver);
-    	touchAction2.tap(353, 212).perform();
-	}
-
-	@Override
-	public void pesquisa() {
-		// TODO Auto-generated method stub
-		
+    	touchAction.tap(342, 372).perform();
 	}
 
 	@Override
 	public void Lista_de_produtos() {
 		TouchAction touchAction = new TouchAction(driver);
-    	touchAction.tap(1044, 1688).perform();
+    	touchAction.tap(238, 1033).perform();
 	}
 	
 	@Override
 	public void visualizar_carrinho() {
 		TouchAction touchAction = new TouchAction(driver);
-    	touchAction.tap(643, 895).perform();
+    	touchAction.tap(1246, 895).perform();
+	}
+
+	@Override
+	public void iniciarCompra() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(440, 904).perform();
+		
 	}
 
 	@Override
 	public void TelaEnderecosEntrega() {
 		TouchAction touchAction = new TouchAction(driver);
-    	touchAction.tap(1480, 899).perform();
+    	touchAction.tap(1250, 890).perform();
 	}
 
 	@Override
 	public void selecionaEndereco() {
-		// TODO Auto-generated method stub
+        new TouchAction(driver).press(0, 1000).waitAction(2000)
+            .moveTo(0, 100).release().perform().waitAction()
+            .tap(1625, 581).perform();
+	}
+
+	@Override
+	public void TelaModalidadeEntregas() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(200, 750).perform();
+	}
+
+	@Override
+	public void selecionaModalidade() {
+        new TouchAction(driver).press(0, 1000).waitAction(2000)
+        .moveTo(0, 100).release().perform().waitAction()
+        .tap(257, 432).perform();
+	}
+
+	@Override
+	public void Pgto_cartao_selecionado() {
 		
+	}
+
+	@Override
+	public void preencherDados() {
 	}
 
 	@Override
 	public void Dados_Preenchidos() {
-		// TODO Auto-generated method stub
-		
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(1517, 807).perform();
 	}
+
+	@Override
+	public void enviarDados() {
+		TouchAction touchAction = new TouchAction(driver);
+    	touchAction.tap(900, 805).perform();
+	}
+
 
 	@Override
 	public void enviarRetorno() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void iniciarCompra() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -153,12 +177,6 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	}
 
 	@Override
-	public void preencherDados() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void voltar() {
 		// TODO Auto-generated method stub
 		
@@ -177,19 +195,7 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 	}
 
 	@Override
-	public void Pgto_cartao_selecionado() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void Pagamento_sucesso() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void TelaModalidadeEntregas() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -202,12 +208,6 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 
 	@Override
 	public void adicionar_ao_carrinho() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void selecionaModalidade() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -265,13 +265,7 @@ public class BookstoreModel extends org.graphwalker.core.machine.ExecutionContex
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void enviarDados() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void TelaResultadoCompra() {
 		// TODO Auto-generated method stub
