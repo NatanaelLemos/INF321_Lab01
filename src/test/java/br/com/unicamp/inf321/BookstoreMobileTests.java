@@ -115,6 +115,9 @@ public class BookstoreMobileTests {
 		cp.addPathGenerator(new AStarPath(new ReachedEdge("iniciar")));
 		cp.addPathGenerator(new AStarPath(new ReachedVertex("Pesquisa_preenchida")));
 		cp.addPathGenerator(new AStarPath(new ReachedVertex("Lista_de_produtos")));
+		cp.addPathGenerator(new AStarPath(new ReachedVertex("Pagamento_sucesso")));
+		cp.addPathGenerator(new AStarPath(new ReachedVertex("Email_Enviado")));
+		cp.addPathGenerator(new AStarPath(new ReachedVertex("EmSeparacao")));
 		
 		Result result = new GraphWalkerTestBuilder()
 				.addModel(MODEL_PATH,
